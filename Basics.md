@@ -23,7 +23,7 @@
 
 * In terminal0 (one terminal): ```frida -U -f compackage.name``` (applicatoon is in paused state) 
 and then in terminal1 (another terminal), run :
-``````objection --gadget com.packagename.value explore -s "android hooking set return_value com.packagename.value.ClassName.method(isDeviceRooted) false"```.
+```objection --gadget com.packagename.value explore -s "android hooking set return_value com.packagename.value.ClassName.method(isDeviceRooted) false"```.
 * Then resume the application via frida: ```%resume```
 
 ## 2. Directly via Objection android root disable check.
