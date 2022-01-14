@@ -1,11 +1,9 @@
-#Root Detection Bypass via Objection
+## Root Detection Bypass via Objection & Frida
 
-Once Frida server is connect from frida client.
-
-Run the below mentioned commands
+1. Via Objection Set Return Value 
 
 
-##To run the objection we need package name , so we can use frida for getting the target package name:
+# Once Frida server is connect from frida client. To run the objection we need package name , so we can use frida for getting the target package name. We will use -s from objection to run command on startup (objection --help)
 * frida-ps -Uai | grep "name of the application |any keyword" 
 * Then run the command ```objection --gadget com.packagename.value explore```
 * Even with objection application will show rooted device. 
@@ -17,3 +15,16 @@ Run the below mentioned commands
 * Then hook the objection to the class used for root detection:
 ```android hooking watch class com.packagename/ClassName```
 * We can run it via ```objection --gadget com.packagename.value explore -s "android hooking watch class com.packagename/ClassName" ```
+* To list the methods from the specific class via objection: ```objection --gadget com.packagename.value explore -s "android hooking list class_methods com.packagename/ClassName" ```
+* check the value if boolean, true or false and then return the value.
+* ```objection --gadget com.packagename.value explore -s "android hooking set return_value com.packagename.value.ClassName.method(isDeviceRooted) false"``` .
+
+* In case application is quickly executing root detection check and exiting. We can force the app via frida and then run the objection.
+
+* In terminal0 (one terminal): ```frida -U -f compackage.name``` (applicatoon is in paused state) 
+and then in terminal1 (another terminal), run :
+``````objection --gadget com.packagename.value explore -s "android hooking set return_value com.packagename.value.ClassName.method(isDeviceRooted) false"```.
+* Then resume the application via frida: ```%resume```
+
+2. Directly via Objection android root disable check.
+
