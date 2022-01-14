@@ -1,9 +1,9 @@
-## Root Detection Bypass via Objection & Frida
+# Root Detection Bypass via Objection & Frida
 
-1. Via Objection Set Return Value 
+## 1. Via Objection Set Return Value 
 
 
-# Once Frida server is connect from frida client. To run the objection we need package name , so we can use frida for getting the target package name. We will use -s from objection to run command on startup (objection --help)
+* Once Frida server is connect from frida client. To run the objection we need package name , so we can use frida for getting the target package name. We will use -s from objection to run command on startup (objection --help).
 * frida-ps -Uai | grep "name of the application |any keyword" 
 * Then run the command ```objection --gadget com.packagename.value explore```
 * Even with objection application will show rooted device. 
@@ -26,5 +26,14 @@ and then in terminal1 (another terminal), run :
 ``````objection --gadget com.packagename.value explore -s "android hooking set return_value com.packagename.value.ClassName.method(isDeviceRooted) false"```.
 * Then resume the application via frida: ```%resume```
 
-2. Directly via Objection android root disable check.
+## 2. Directly via Objection android root disable check.
+
+* Once Frida server is connect from frida client. To run the objection we need package name , so we can use frida for getting the target package name. We will use -s from objection to run command on startup (objection --help).
+* frida-ps -Uai | grep "name of the application |any keyword" .
+* Get the package name and run the objection command ```android root disable``` .
+* Then run the command ```objection --gadget com.packagename.value explore -s "android root diable"```.
+* This may or may not work in some cases.
+
+
+
 
